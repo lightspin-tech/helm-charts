@@ -1,0 +1,13 @@
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: lightspin-secaudit
+subjects:
+  - kind: ServiceAccount
+    name: {{ template "lightspin-kubecollector.worker.serviceAccountName" . }}
+{{ include "lightspin-kubecollector.namespace" . | indent 4 }}
+    apiGroup: ""
+roleRef:
+  kind: ClusterRole
+  name: lightspin-secaudit
+  apiGroup: ""

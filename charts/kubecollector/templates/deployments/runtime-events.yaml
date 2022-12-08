@@ -1,0 +1,36 @@
+{{- if .Values.runtime.enabled -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: light-kuberuntime-events
+  name: {{ template "lightspin-kubecollector.runtime.events.fullname" . }}
+{{ include "lightspin-kubecollector.namespace" . | indent 2 }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      {{- include "lightspin-kubecollector.runtime.events.matchLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "lightspin-kubecollector.runtime.events.labels" . | nindent 8 }}
+    spec:
+      containers:
+      - image: "{{ .Values.runtime.events.image.repository }}:{{ .Values.runtime.events.image.tag | default .Chart.AppVersion }}"
+        imagePullPolicy: Always
+        name: worker
+        command: ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8080"]
+        envFrom:
+          - configMapRef:
+              name: light-kuberuntime-cm
+          - secretRef:
+              name: api-key
+        resources:
+          limits:
+           memory: 1024Mi
+           cpu: 300m
+          requests:
+           memory: 300Mi
+           cpu: 100m
+{{- end -}}

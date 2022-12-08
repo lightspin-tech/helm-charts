@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ template "lightspin-kubecollector.beat.fullname" . }}
+  labels:
+    {{- include "lightspin-kubecollector.beat.labels" . | nindent 4 }}
+{{ include "lightspin-kubecollector.namespace" . | indent 2 }}
+spec:
+  replicas: {{ .Values.beat.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "lightspin-kubecollector.beat.matchLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.beat.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "lightspin-kubecollector.beat.labels" . | nindent 8 }}
+    spec:
+      {{- with .Values.beat.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+        - name:  {{ .Values.beat.name }}
+          image: "{{ .Values.beat.image.repository }}:{{ .Values.beat.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.beat.image.pullPolicy }}
+          command: ['celery', '-A', 'celeryapp', 'beat', '-l', 'INFO', '--uid', '1980']
+          envFrom:
+            - configMapRef:
+                name: light-kubecollector-cm
+          resources:
+            {{- toYaml .Values.broker.resources | nindent 12 }}
+      {{- with .Values.broker.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.broker.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.broker.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+

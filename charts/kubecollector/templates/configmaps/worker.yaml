@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: light-kubecollector-cm
+{{ include "lightspin-kubecollector.namespace" . | indent 2 }}
+
+data:
+  CELERY_APP_NAME: "lightspin-kubecollector"
+  CELERY_BROKER: {{ include "lightspin-kubecollector.broker.url" . | quote }}
+  CELERY_BACKEND: {{ include "lightspin-kubecollector.broker.url" . | quote }}
+
+  API_URL: {{ .Values.apiUrl | quote }}
+  TENANT_ID: {{ default "MISSING-VARIABLE" .Values.tenantId | quote }}
+  CLUSTER_NAME: {{ default "MISSING-VARIABLE" .Values.clusterName | quote }}
+  CLUSTER_ID: {{ .Values.clusterId | quote }}
+  KEEP_ALIVE_INTERVAL: {{ .Values.worker.config.keep_alive_interval | quote }}
+  CMD_POLLER_INTERVAL: {{ .Values.worker.config.cmd_poller_interval | quote }}
+
+  VULS_ENABLED: {{ .Values.worker.config.vuls_enabled | quote }}
+  VULS_PRIVATE_REPO: {{ .Values.worker.config.vuls_private_repo | quote }}
+
+  RUNTIME_ENABLED: {{ .Values.runtime.enabled | quote }}
+  RUNTIME_RULES_UPDATE_INTERVAL: {{ .Values.worker.config.runtime_rules_update_interval | quote }}
+{{- if .Values.worker.config.cron_schedule }}
+  SCHEDULE_CRONTAB: {{ .Values.worker.config.cron_schedule | quote }}
+{{- else }}
+  SCHEDULE_CRONTAB: {{ printf "%s %s * * *" (now | date "2006-01-02T15:04:05" | substr 14 16) (now | date "2006-01-02T15:04:05" | substr 11 13) | quote }}
+{{- end }}
+  API_RATE_LIMIT: {{ .Values.worker.config.api_rate_limit | quote }}
+  VERSION: {{ .Chart.Version | quote }}
+  LOG_LEVEL: {{ .Values.worker.config.log_level | quote }}

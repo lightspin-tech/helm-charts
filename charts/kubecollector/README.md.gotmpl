@@ -1,0 +1,93 @@
+# Lightspin KubeCollector
+
+{{ template "chart.versionBadge" . }}{{ template "chart.typeBadge" . }}{{ template "chart.appVersionBadge" . }}
+
+[Lightspin](https://www.lightspin.io/) is a graph-based technology immediately visualizes, prioritizes, and dynamically remediates critical cloud risks with no custom configuration needed. This repository contains the Helm chart for the Lightspin KubeCollector application to be deployed on customers Kubernetes clusters.
+
+## How to use Lightspin Helm repository
+
+You need to add this repository to your Helm repositories:
+
+```
+helm repo add lightspin https://helm.lightspin.cloud
+helm repo update
+```
+
+{{ template "chart.requirementsSection" . }}
+
+## Quick start
+
+Lightspin KubeCollector runs in 4 Deployments and 1 DaemonSet for the runtime engine.
+
+**Note:** if runtime is disabled only 3 Deployments are applied.
+
+### Installing the Lightspin KubeCollector Chart
+
+To install the chart with the release name `<RELEASE_NAME>`, retrieve your Lightspin API key from the Settings -> Accounts -> Kuberentes Cluster section in Lightspin platform and run:
+
+```bash
+helm install <RELEASE_NAME> \
+    --namespace lightspin --create-namespace \
+    --set apiKey=<LIGHTSPIN_API_KEY>,tenantId=<YOUR_TENANT_ID>,clusterName=<YOUR_CLUSTER_NAME> lightspin/kubecollector
+```
+
+After a few minutes, you should see a the cluster added to the accounts section in the settings page and that a scan has started.
+
+**Note:** Non US platform customers can set the <LIGHTSPIN_API_URL> using the `apiUrl` field.
+
+```bash
+helm install <RELEASE_NAME> \
+    --set apiKey=<LIGHTSPIN_API_KEY> \
+    --set apiUrl=<LIGHTSPIN_API_URL> \
+    --set tenantId=<YOUR_TENANT_ID> \
+    --set clusterName=<YOUR_CLUSTER_NAME> \
+    --namespace lightspin --create-namespace \
+    lightspin/light-kubecollector
+```
+
+### Upgrading
+
+#### From 1.x to 2.x
+
+⚠️ Migrating from 1.x to 2.x requires a manual action.
+
+The `Lightspin KubeCollector` chart has been refactored.
+Please uninstall the previous version of the chart and install the new one.
+
+```bash
+helm uninstall <RELEASE_NAME> --namespace lightspin
+```
+
+### Uninstalling the Chart
+
+To uninstall/delete the `<RELEASE_NAME>` deployment:
+
+```bash
+helm delete <RELEASE_NAME> --purge --namespace lightspin
+```
+
+The command removes all the Kubernetes components associated with the chart and deletes the release.
+
+## Configuration
+
+As a best practice, a YAML file that specifies the values for the chart parameters should be used to configure the chart. Any parameters not specified in this file will default to those set in [values.yaml](values.yaml).
+
+1. Create an empty `kubecollector-values.yaml` file.
+2. Set the parameters you would like to override in your `kubecollector-values.yaml`.
+3. Install or upgrade the Lightspin KubeCollector Helm chart with the new `kubecollector-values.yaml` file:
+
+```bash
+helm install -f kubecollector-values.yaml <RELEASE_NAME> --namespace lightspin --create-namespace lightspin/kubecollector
+```
+
+OR
+
+```bash
+helm upgrade -f kubecollector-values.yaml <RELEASE_NAME> --namespace lightspin --create-namespace lightspin/kubecollector
+```
+
+## All configuration options
+
+The following table lists the configurable parameters of the Lightspin KubeCollector chart and their default values. Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example,
+
+{{ template "chart.valuesSection" . }}

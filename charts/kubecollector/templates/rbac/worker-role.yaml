@@ -1,0 +1,11 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: {{ template "lightspin-kubecollector.worker.fullname" . }}
+  labels:
+    {{- include "lightspin-kubecollector.worker.labels" . | nindent 4 }}
+{{ include "lightspin-kubecollector.namespace" . | indent 2 }}
+rules:
+  - apiGroups: ["*"]
+    resources: ["pods", "configmaps", "services", "networkpolicies", "deployments", "secrets", "daemonsets", "logs"]
+    verbs: ["get", "list", "create", "update", "patch", "delete"]

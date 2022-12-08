@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: lightspin-kubecollector-redis
+{{ include "lightspin-kubecollector.namespace" . | indent 2 }}
+spec:
+  ports:
+  - port: 6379
+    targetPort: 6379
+  selector:
+    {{- include "lightspin-kubecollector.broker.matchLabels" . | nindent 6 }}

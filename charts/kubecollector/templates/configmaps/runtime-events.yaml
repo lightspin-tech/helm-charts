@@ -1,0 +1,13 @@
+{{- if .Values.runtime.enabled -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: light-kuberuntime-cm
+{{ include "lightspin-kubecollector.namespace" . | indent 2 }}
+data:
+  API_URL: {{ .Values.apiUrl | quote }}
+  TENANT_ID: {{ .Values.tenantId | quote }}
+  CLUSTER_ID: {{ .Values.clusterId | quote }}
+
+  LOG_LEVEL: {{ .Values.runtime.events.config.log_level | quote }}
+{{- end -}}

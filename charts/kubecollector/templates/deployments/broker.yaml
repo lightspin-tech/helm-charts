@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ template "lightspin-kubecollector.broker.fullname" . }}
+  labels:
+    {{- include "lightspin-kubecollector.broker.labels" . | nindent 4 }}
+{{ include "lightspin-kubecollector.namespace" . | indent 2 }}
+spec:
+  replicas: {{ .Values.broker.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "lightspin-kubecollector.broker.matchLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.broker.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "lightspin-kubecollector.broker.labels" . | nindent 8 }}
+    spec:
+      {{- with .Values.broker.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+        - name:  {{ .Values.broker.name }}
+          image: "{{ .Values.broker.image.repository }}:{{ .Values.broker.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.broker.image.pullPolicy }}
+          command:
+            - redis-server
+            - "/redis/redis.conf"
+          ports:
+            - containerPort: {{ .Values.broker.config.port }}
+              protocol: TCP
+          readinessProbe:
+            tcpSocket:
+              port: {{ .Values.broker.config.port }}
+            initialDelaySeconds: 15
+            periodSeconds: 10
+          resources:
+            {{- toYaml .Values.broker.resources | nindent 12 }}
+          volumeMounts:
+          - mountPath: /redis
+            name: config
+      {{- with .Values.broker.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.broker.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.broker.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      volumes:
+        - name: config
+          configMap:
+            name: redis-config
+            items:
+            - key: redis-config
+              path: redis.conf

@@ -1,0 +1,146 @@
+## Default values for Lightspin KubeCollector.
+
+# nameOverride -- Override name of app
+nameOverride:  # ""
+
+namespace:
+  # namespace.forceNamespace -- Override namespace of app
+  forceNamespace:  # ""
+
+# fullnameOverride -- Override the full qualified app name
+fullnameOverride:  # ""
+
+# commonLabels -- Labels to apply to all resources
+commonLabels: {}
+
+
+# apiKey -- Lightspin API key
+apiKey:  # ""
+# apiKey -- Lightspin API URL (override for non US customers)
+apiUrl: "https://k8sapi.lightspin.cloud"
+# tenantId -- Lightspin tenant id (id-xyz).
+tenantId:  # ""
+# clusterId -- Your kubernetes cluster unique identifier (uuid4). will be derived from kube-system namespace uid.
+clusterId: ""
+# clusterName -- Your kubernetes cluster name to be identified in Lightspin platform.
+clusterName:  # ""
+
+broker:
+  # broker.fullnameOverride -- fully qualified name of the broker service
+  fullnameOverride: light-kubecollector-broker
+  # broker.name -- name of the broker service component
+  name: broker
+  ## Define the Lightspin kubecollector broker image to work with
+  image:
+    # broker.image.repository -- redis docker image repository
+    repository: redis
+    # broker.image.tag -- redis docker image tag
+    tag: 7.0.5
+    # broker.image.pullPolicy -- redis docker image pullPolicy
+    pullPolicy: IfNotPresent
+  # broker.replicaCount -- Specify the number of replicas for the broker service
+  replicaCount: 1
+  # broker.resources -- kubecollector broker resource requests and limits.
+  resources:
+    limits:
+      memory: 600Mi
+      cpu: 1
+    requests:
+      memory: 300Mi
+      cpu: 300m
+  ## broker.config -- kubecollector broker config section.
+  config:
+    # broker.config.port -- kubecollector broker listening port.
+    port: 6379
+
+beat:
+  # beat.fullnameOverride -- fully qualified name of the beat service
+  fullnameOverride: light-kubecollector-beat
+  # beat.name -- name of the beat service
+  name: beat
+  ## Define the Lightspin kubecollector beat image to work with
+  image:
+    # beat.image.repository -- kubecollector image repository
+    repository: public.ecr.aws/k7e6s3l5/light-kubecollector
+    # beat.image.tag -- kubecollector beat image tag
+    tag: main
+    # beat.image.pullPolicy -- kubecollector beat docker image pullPolicy
+    pullPolicy: Always
+  # beat.replicaCount -- Specify the number of replicas for the beat service
+  replicaCount: 1
+  # beat.resources -- kubecollector beat resource requests and limits.
+  resources:
+    limits:
+      memory: 200Mi
+      cpu: 300m
+    requests:
+      memory: 100Mi
+      cpu: 100m
+
+worker:
+  # worker.fullnameOverride -- fully qualified name of the worker service
+  fullnameOverride: light-kubecollector-worker
+  # worker.name -- name of the worker service
+  name: worker
+  ## Define the Lightspin kubecollector worker image to work with
+  image:
+    # worker.image.repository -- kubecollector image repository
+    repository: public.ecr.aws/k7e6s3l5/light-kubecollector
+    # worker.image.tag -- kubecollector worker image tag
+    tag: main
+    # worker.image.pullPolicy -- kubecollector worker docker image pullPolicy
+    pullPolicy: Always
+  # worker.replicaCount -- Specify the number of replicas for the worker service
+  replicaCount: 1
+  # worker.resources -- kubecollector worker resource requests and limits.
+  resources:
+    limits:
+      memory: 1024Mi
+      cpu: 300m
+    requests:
+      memory: 300Mi
+      cpu: 100m
+  ## worker.config -- kubecollector worker config section.
+  config:
+    # worker.config.keep_alive_interval -- keep alive message interval.
+    keep_alive_interval: 900
+    # worker.config.cmd_poller_interval -- check for command message interval.
+    cmd_poller_interval: 60
+    # worker.config.vuls_enabled -- enable vulnerability scanning.
+    vuls_enabled: true
+    # worker.config.vuls_private_repo -- enable vulnerability scanning on private repository images (uses pull secret).
+    vuls_private_repo: true
+    # worker.config.runtime_rules_update_interval -- runtime rules check for update interval.
+    runtime_rules_update_interval: 86400
+    # worker.config.cron_schedule -- crontab format scan schedule (daily scan with current time will be used as default).
+    cron_schedule:  # ""
+    # worker.config.api_rate_limit -- kubernetes api calls sleep time between each call.
+    api_rate_limit: 0.0
+    # worker.config.log_level -- logs severity level.
+    log_level: "INFO"
+    # worker.config.concurrency -- number of concurrent tasks being executed.
+    concurrency: 2
+
+
+runtime:
+  # runtime.enabled -- enable runtime detection services.
+  enabled: true
+  falco:
+    # runtime.falco.fullnameOverride -- fully qualified name of the falco daemonset service
+    fullnameOverride: lightspin-runtime
+    # runtime.falco.name -- name of the falco daemonset service
+    name: runtime
+  events:
+    # runtime.events.fullnameOverride -- fully qualified name of the runtime events service
+    fullnameOverride: light-kuberuntime-events
+    # runtime.events.name -- name of the runtime events service
+    name: events
+    image:
+      # runtime.events.image.repository -- kuberuntime events image repository
+      repository: public.ecr.aws/k7e6s3l5/light-kuberuntime
+      # runtime.events..image.tag -- kuberuntime events image tag
+      tag: master
+    ## runtime.events.config -- runtime events config section.
+    config:
+      # runtime.config.log_level -- logs severity level.
+      log_level: "INFO"
