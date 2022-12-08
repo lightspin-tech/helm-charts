@@ -1,6 +1,6 @@
 # Lightspin KubeCollector
 
-![Version: 0.1.1](https://img.shields.io/badge/Version-0.1.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2.0.0](https://img.shields.io/badge/AppVersion-2.0.0-informational?style=flat-square)
+![Version: 0.1.2](https://img.shields.io/badge/Version-0.1.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2.0.0](https://img.shields.io/badge/AppVersion-2.0.0-informational?style=flat-square)
 
 [Lightspin](https://www.lightspin.io/) is a graph-based technology immediately visualizes, prioritizes, and dynamically remediates critical cloud risks with no custom configuration needed. This repository contains the Helm chart for the Lightspin KubeCollector application to be deployed on customers Kubernetes clusters.
 
@@ -86,7 +86,7 @@ helm upgrade -f kubecollector-values.yaml <RELEASE_NAME> --namespace lightspin -
 
 ## All configuration options
 
-The following table lists the configurable parameters of the Lightspin KubeCollector chart and their default values. Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example,
+The following table lists the configurable parameters of the Lightspin KubeCollector chart and their default values. Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`.
 
 ## Values
 
