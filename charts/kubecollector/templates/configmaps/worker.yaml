@@ -27,5 +27,5 @@ data:
   SCHEDULE_CRONTAB: {{ printf "%s %s * * *" (now | date "2006-01-02T15:04:05" | substr 14 16) (now | date "2006-01-02T15:04:05" | substr 11 13) | quote }}
 {{- end }}
   API_RATE_LIMIT: {{ .Values.worker.config.api_rate_limit | quote }}
-  VERSION: {{ .Chart.appVersion | quote }}
+  VERSION: {{ .Chart.AppVersion | quote }}
   LOG_LEVEL: {{ .Values.worker.config.log_level | quote }}
