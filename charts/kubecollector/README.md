@@ -1,6 +1,6 @@
 # Lightspin KubeCollector
 
-![Version: 0.1.3](https://img.shields.io/badge/Version-0.1.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2.0.0](https://img.shields.io/badge/AppVersion-2.0.0-informational?style=flat-square)
+![Version: 0.1.4](https://img.shields.io/badge/Version-0.1.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2.0.0](https://img.shields.io/badge/AppVersion-2.0.0-informational?style=flat-square)
 
 [Lightspin](https://www.lightspin.io/) is a graph-based technology immediately visualizes, prioritizes, and dynamically remediates critical cloud risks with no custom configuration needed. This repository contains the Helm chart for the Lightspin KubeCollector application to be deployed on customers Kubernetes clusters.
 
@@ -92,12 +92,12 @@ The following table lists the configurable parameters of the Lightspin KubeColle
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| apiKey | string | `nil` | Lightspin API URL (override for non US customers) |
-| apiUrl | string | `"https://k8sapi.lightspin.cloud"` |  |
+| apiKey | string | `nil` | Lightspin API key |
+| apiUrl | string | `"https://k8sapi.lightspin.cloud"` | Lightspin API URL (override for non US customers) |
 | beat.fullnameOverride | string | `"light-kubecollector-beat"` | fully qualified name of the beat service |
 | beat.image.pullPolicy | string | `"Always"` | kubecollector beat docker image pullPolicy |
 | beat.image.repository | string | `"public.ecr.aws/k7e6s3l5/light-kubecollector"` | kubecollector image repository |
-| beat.image.tag | string | `"main"` | kubecollector beat image tag |
+| beat.image.tag | string | `"latest"` | kubecollector beat image tag |
 | beat.name | string | `"beat"` | name of the beat service |
 | beat.replicaCount | int | `1` | Specify the number of replicas for the beat service |
 | beat.resources | object | `{"limits":{"cpu":"300m","memory":"200Mi"},"requests":{"cpu":"100m","memory":"100Mi"}}` | kubecollector beat resource requests and limits. |
@@ -119,7 +119,7 @@ The following table lists the configurable parameters of the Lightspin KubeColle
 | runtime.events.config.log_level | string | `"INFO"` |  |
 | runtime.events.fullnameOverride | string | `"light-kuberuntime-events"` | fully qualified name of the runtime events service |
 | runtime.events.image.repository | string | `"public.ecr.aws/k7e6s3l5/light-kuberuntime"` | kuberuntime events image repository |
-| runtime.events.image.tag | string | `"master"` |  |
+| runtime.events.image.tag | string | `"latest"` |  |
 | runtime.events.name | string | `"events"` | name of the runtime events service |
 | runtime.falco.fullnameOverride | string | `"lightspin-runtime"` | fully qualified name of the falco daemonset service |
 | runtime.falco.name | string | `"runtime"` | name of the falco daemonset service |
@@ -136,7 +136,7 @@ The following table lists the configurable parameters of the Lightspin KubeColle
 | worker.fullnameOverride | string | `"light-kubecollector-worker"` | fully qualified name of the worker service |
 | worker.image.pullPolicy | string | `"Always"` | kubecollector worker docker image pullPolicy |
 | worker.image.repository | string | `"public.ecr.aws/k7e6s3l5/light-kubecollector"` | kubecollector image repository |
-| worker.image.tag | string | `"main"` | kubecollector worker image tag |
+| worker.image.tag | string | `"latest"` | kubecollector worker image tag |
 | worker.name | string | `"worker"` | name of the worker service |
 | worker.replicaCount | int | `1` | Specify the number of replicas for the worker service |
 | worker.resources | object | `{"limits":{"cpu":"300m","memory":"1024Mi"},"requests":{"cpu":"100m","memory":"300Mi"}}` | kubecollector worker resource requests and limits. |
