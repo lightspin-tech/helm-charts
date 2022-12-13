@@ -16,7 +16,7 @@ commonLabels: {}
 
 # apiKey -- Lightspin API key
 apiKey:  # ""
-# apiKey -- Lightspin API URL (override for non US customers)
+# apiUrl -- Lightspin API URL (override for non US customers)
 apiUrl: "https://k8sapi.lightspin.cloud"
 # tenantId -- Lightspin tenant id (id-xyz).
 tenantId:  # ""
@@ -63,7 +63,7 @@ beat:
     # beat.image.repository -- kubecollector image repository
     repository: public.ecr.aws/k7e6s3l5/light-kubecollector
     # beat.image.tag -- kubecollector beat image tag
-    tag: main
+    tag: latest
     # beat.image.pullPolicy -- kubecollector beat docker image pullPolicy
     pullPolicy: Always
   # beat.replicaCount -- Specify the number of replicas for the beat service
@@ -87,7 +87,7 @@ worker:
     # worker.image.repository -- kubecollector image repository
     repository: public.ecr.aws/k7e6s3l5/light-kubecollector
     # worker.image.tag -- kubecollector worker image tag
-    tag: main
+    tag: latest
     # worker.image.pullPolicy -- kubecollector worker docker image pullPolicy
     pullPolicy: Always
   # worker.replicaCount -- Specify the number of replicas for the worker service
@@ -139,7 +139,7 @@ runtime:
       # runtime.events.image.repository -- kuberuntime events image repository
       repository: public.ecr.aws/k7e6s3l5/light-kuberuntime
       # runtime.events..image.tag -- kuberuntime events image tag
-      tag: master
+      tag: latest
     ## runtime.events.config -- runtime events config section.
     config:
       # runtime.config.log_level -- logs severity level.
