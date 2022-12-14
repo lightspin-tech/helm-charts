@@ -24,7 +24,7 @@ spec:
           key: node-role.kubernetes.io/master
       containers:
         - name: falco
-          image: docker.io/falcosecurity/falco:0.33.1
+          image: "{{ .Values.runtime.falco.image.repository }}:{{ .Values.runtime.falco.image.tag }}"
           imagePullPolicy: IfNotPresent
           resources:
             limits:
@@ -52,6 +52,10 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: spec.nodeName
+          {{- if .Values.runtime.falco.ebpf_probe.enabled }}
+            - name: FALCO_BPF_PROBE
+              value: ""
+          {{- end }}
           livenessProbe:
             initialDelaySeconds: 60
             timeoutSeconds: 5
