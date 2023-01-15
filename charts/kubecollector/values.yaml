@@ -16,6 +16,12 @@ commonLabels: {}
 
 # apiKey -- Lightspin API key
 apiKey:  # ""
+
+# apiKeyExistingSecret -- Use existing Secret which stores API key instead of creating a new one. The value should be set with the `API_KEY` key inside the secret.
+
+## If set, this parameter takes precedence over "apiKey".
+apiKeyExistingSecret:  # <LIGHTSPIN_API_KEY_SECRET>
+
 # apiUrl -- Lightspin API URL (override for non US customers)
 apiUrl: "https://k8sapi.lightspin.cloud"
 # tenantId -- Lightspin tenant id (id-xyz).
