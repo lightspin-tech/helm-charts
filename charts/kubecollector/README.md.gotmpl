@@ -31,6 +31,11 @@ helm install <RELEASE_NAME> \
     --set apiKey=<LIGHTSPIN_API_KEY>,tenantId=<YOUR_TENANT_ID>,clusterName=<YOUR_CLUSTER_NAME> lightspin/kubecollector
 ```
 
+By default, this Chart creates a Secret and puts an API key in that Secret.
+However, you can use manually created secrets by setting the `apiKeyExistingSecret` value pointing to the secret name.
+
+**Note:** When creating the secret, be sure to name the key field `API_KEY`
+
 After a few minutes, you should see a the cluster added to the accounts section in the settings page and that a scan has started.
 
 **Note:** Non US platform customers can set the <LIGHTSPIN_API_URL> using the `apiUrl` field.

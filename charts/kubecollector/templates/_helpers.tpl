@@ -248,3 +248,11 @@ namespace: {{ .Release.Namespace }}
 {{- define "lightspin-kubecollector.broker.url" -}}
 {{- printf "redis://lightspin-kubecollector-redis:%d/" (.Values.broker.config.port | int) -}}
 {{- end -}}
+
+{{- define "lightspin-kubecollector.apikey" -}}
+{{- if .Values.apiKeyExistingSecret -}}
+{{- printf "%s" .Values.apiKeyExistingSecret -}}
+{{- else -}}
+{{- printf "api-key" -}}
+{{- end -}}
+{{- end -}}

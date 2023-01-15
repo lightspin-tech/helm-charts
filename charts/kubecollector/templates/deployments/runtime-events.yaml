@@ -25,7 +25,7 @@ spec:
           - configMapRef:
               name: light-kuberuntime-cm
           - secretRef:
-              name: api-key
+              name: {{ template "lightspin-kubecollector.apikey" . }}
         resources:
           limits:
            memory: 1024Mi
