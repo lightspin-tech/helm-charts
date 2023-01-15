@@ -34,7 +34,7 @@ spec:
             - configMapRef:
                 name: light-kubecollector-cm
             - secretRef:
-                name: api-key
+                name: {{ template "lightspin-kubecollector.apikey" . }}
           resources:
             {{- toYaml .Values.broker.resources | nindent 12 }}
       {{- with .Values.broker.nodeSelector }}

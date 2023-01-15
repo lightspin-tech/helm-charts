@@ -1,6 +1,6 @@
 # Lightspin KubeCollector
 
-![Version: 0.1.5](https://img.shields.io/badge/Version-0.1.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2.0.0](https://img.shields.io/badge/AppVersion-2.0.0-informational?style=flat-square)
+![Version: 0.1.6](https://img.shields.io/badge/Version-0.1.6-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2.0.0](https://img.shields.io/badge/AppVersion-2.0.0-informational?style=flat-square)
 
 [Lightspin](https://www.lightspin.io/) is a graph-based technology immediately visualizes, prioritizes, and dynamically remediates critical cloud risks with no custom configuration needed. This repository contains the Helm chart for the Lightspin KubeCollector application to be deployed on customers Kubernetes clusters.
 
@@ -28,6 +28,11 @@ helm install <RELEASE_NAME> \
     --namespace lightspin --create-namespace \
     --set apiKey=<LIGHTSPIN_API_KEY>,tenantId=<YOUR_TENANT_ID>,clusterName=<YOUR_CLUSTER_NAME> lightspin/kubecollector
 ```
+
+By default, this Chart creates a Secret and puts an API key in that Secret.
+However, you can use manually created secrets by setting the `apiKeyExistingSecret` value pointing to the secret name.
+
+**Note:** When creating the secret, be sure to name the key field `API_KEY`
 
 After a few minutes, you should see a the cluster added to the accounts section in the settings page and that a scan has started.
 
@@ -93,6 +98,7 @@ The following table lists the configurable parameters of the Lightspin KubeColle
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | apiKey | string | `nil` | Lightspin API key |
+| apiKeyExistingSecret | string | `nil` | Use existing Secret which stores API key instead of creating a new one. The value should be set with the `API_KEY` key inside the secret. |
 | apiUrl | string | `"https://k8sapi.lightspin.cloud"` | Lightspin API URL (override for non US customers) |
 | beat.fullnameOverride | string | `"light-kubecollector-beat"` | fully qualified name of the beat service |
 | beat.image.pullPolicy | string | `"Always"` | kubecollector beat docker image pullPolicy |
