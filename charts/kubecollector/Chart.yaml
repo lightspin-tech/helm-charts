@@ -2,7 +2,7 @@ apiVersion: v2
 name: kubecollector
 description: A Helm chart for Lightspin Kuberenetes CSPM
 type: application
-version: 0.1.6
+version: 0.1.7
 appVersion: "2.0.0"
 home: https://lightspin.io/
 maintainers:

@@ -1,6 +1,6 @@
 # Lightspin KubeCollector
 
-![Version: 0.1.6](https://img.shields.io/badge/Version-0.1.6-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2.0.0](https://img.shields.io/badge/AppVersion-2.0.0-informational?style=flat-square)
+![Version: 0.1.7](https://img.shields.io/badge/Version-0.1.7-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2.0.0](https://img.shields.io/badge/AppVersion-2.0.0-informational?style=flat-square)
 
 [Lightspin](https://www.lightspin.io/) is a graph-based technology immediately visualizes, prioritizes, and dynamically remediates critical cloud risks with no custom configuration needed. This repository contains the Helm chart for the Lightspin KubeCollector application to be deployed on customers Kubernetes clusters.
 
@@ -129,7 +129,7 @@ The following table lists the configurable parameters of the Lightspin KubeColle
 | runtime.events.name | string | `"events"` | name of the runtime events service |
 | runtime.falco.ebpf_probe.enabled | bool | `false` | enable ebpf probe for falco. |
 | runtime.falco.fullnameOverride | string | `"lightspin-runtime"` | fully qualified name of the falco daemonset service |
-| runtime.falco.image.repository | string | `"docker.io/falcosecurity/falco"` | falco agent image repository |
+| runtime.falco.image.repository | string | `"public.ecr.aws/falcosecurity/falco"` | falco agent image repository |
 | runtime.falco.image.tag | string | `"0.33.1"` | falco agent image tag |
 | runtime.falco.name | string | `"runtime"` | name of the falco daemonset service |
 | tenantId | string | `nil` | Lightspin tenant id (id-xyz). |
