@@ -138,7 +138,7 @@ runtime:
     name: runtime
     image:
       # runtime.falco.image.repository -- falco agent image repository
-      repository: docker.io/falcosecurity/falco
+      repository: public.ecr.aws/falcosecurity/falco
       # runtime.falco.image.tag -- falco agent image tag
       tag: 0.33.1
     ebpf_probe:
