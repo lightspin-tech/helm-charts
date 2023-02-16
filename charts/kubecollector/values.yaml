@@ -138,12 +138,16 @@ runtime:
     name: runtime
     image:
       # runtime.falco.image.repository -- falco agent image repository
-      repository: docker.io/falcosecurity/falco
+      repository: public.ecr.aws/falcosecurity/falco
       # runtime.falco.image.tag -- falco agent image tag
       tag: 0.33.1
     ebpf_probe:
       # runtime.falco.ebpf_probe.enabled -- enable ebpf probe for falco.
       enabled: false
+    tolerations:
+      # runtime.falco.tolerations -- tolerations for the falco daemonset
+      - effect: NoSchedule
+        key: node-role.kubernetes.io/master
   events:
     # runtime.events.fullnameOverride -- fully qualified name of the runtime events service
     fullnameOverride: light-kuberuntime-events
