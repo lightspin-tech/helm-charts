@@ -19,9 +19,10 @@ spec:
         role: security
     spec:
       serviceAccountName: {{ template "lightspin-kubecollector.runtime.falco.serviceAccountName" . }}
+      {{- with .Values.runtime.falco.tolerations }}
       tolerations:
-        - effect: NoSchedule
-          key: node-role.kubernetes.io/master
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       containers:
         - name: falco
           image: "{{ .Values.runtime.falco.image.repository }}:{{ .Values.runtime.falco.image.tag }}"
