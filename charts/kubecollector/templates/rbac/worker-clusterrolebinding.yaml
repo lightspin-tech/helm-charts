@@ -5,6 +5,7 @@ metadata:
 subjects:
   - kind: ServiceAccount
     name: {{ template "lightspin-kubecollector.worker.serviceAccountName" . }}
+{{ include "lightspin-kubecollector.namespace" . | indent 4 }}
     apiGroup: ""
 roleRef:
   kind: ClusterRole

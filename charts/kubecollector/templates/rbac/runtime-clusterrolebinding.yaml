@@ -8,6 +8,7 @@ metadata:
 subjects:
   - kind: ServiceAccount
     name: {{ template "lightspin-kubecollector.runtime.falco.serviceAccountName" . }}
+{{ include "lightspin-kubecollector.namespace" . | indent 4 }}
 roleRef:
   kind: ClusterRole
   name: {{ template "lightspin-kubecollector.runtime.falco.fullname" . }}
