@@ -3,6 +3,20 @@ entries:
   kubecollector:
   - apiVersion: v2
     appVersion: 2.0.0
+    created: "2023-02-21T21:08:59.809104284Z"
+    description: A Helm chart for Lightspin Kuberenetes CSPM
+    digest: c378ce9f209c86f7005ee0f18e373fa24e4db2cc8b0fca3f9ed6e5282de620b7
+    home: https://lightspin.io/
+    maintainers:
+    - email: support@lightspin.io
+      name: Lightspin
+    name: kubecollector
+    type: application
+    urls:
+    - https://github.com/lightspin-tech/helm-charts/releases/download/kubecollector-0.1.9/kubecollector-0.1.9.tgz
+    version: 0.1.9
+  - apiVersion: v2
+    appVersion: 2.0.0
     created: "2023-02-16T23:45:58.139416623Z"
     description: A Helm chart for Lightspin Kuberenetes CSPM
     digest: cb412b77f78135cf14bb75125395729bd737f6f7efb4115bf64e06fc0d7b2a7b
@@ -113,4 +127,4 @@ entries:
     urls:
     - https://github.com/lightspin-tech/helm-charts/releases/download/kubecollector-0.1.1/kubecollector-0.1.1.tgz
     version: 0.1.1
-generated: "2023-02-16T23:45:58.139587323Z"
+generated: "2023-02-21T21:08:59.809171685Z"
