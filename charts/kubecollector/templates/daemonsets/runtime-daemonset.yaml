@@ -17,6 +17,10 @@ spec:
       labels:
         {{- include "lightspin-kubecollector.runtime.falco.labels" . | nindent 8 }}
         role: security
+      {{- with .Values.runtime.falco.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
     spec:
       serviceAccountName: {{ template "lightspin-kubecollector.runtime.falco.serviceAccountName" . }}
       {{- with .Values.runtime.falco.tolerations }}
