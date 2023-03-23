@@ -19,6 +19,14 @@ spec:
         role: security
     spec:
       serviceAccountName: {{ template "lightspin-kubecollector.runtime.falco.serviceAccountName" . }}
+      {{- with .Values.runtime.falco.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.runtime.falco.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       {{- with .Values.runtime.falco.tolerations }}
       tolerations:
         {{- toYaml . | nindent 8 }}

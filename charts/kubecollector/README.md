@@ -1,6 +1,6 @@
 # Lightspin KubeCollector
 
-![Version: 0.1.9](https://img.shields.io/badge/Version-0.1.9-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2.0.0](https://img.shields.io/badge/AppVersion-2.0.0-informational?style=flat-square)
+![Version: 0.1.10](https://img.shields.io/badge/Version-0.1.10-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2.0.0](https://img.shields.io/badge/AppVersion-2.0.0-informational?style=flat-square)
 
 [Lightspin](https://www.lightspin.io/) is a graph-based technology immediately visualizes, prioritizes, and dynamically remediates critical cloud risks with no custom configuration needed. This repository contains the Helm chart for the Lightspin KubeCollector application to be deployed on customers Kubernetes clusters.
 
@@ -100,21 +100,27 @@ The following table lists the configurable parameters of the Lightspin KubeColle
 | apiKey | string | `nil` | Lightspin API key |
 | apiKeyExistingSecret | string | `nil` | Use existing Secret which stores API key instead of creating a new one. The value should be set with the `API_KEY` key inside the secret. |
 | apiUrl | string | `"https://k8sapi.lightspin.cloud"` | Lightspin API URL (override for non US customers) |
+| beat.affinity | object | `{}` | By default, Cluster Agent Deployment Pods are forced to run on different Nodes. |
 | beat.fullnameOverride | string | `"light-kubecollector-beat"` | fully qualified name of the beat service |
 | beat.image.pullPolicy | string | `"Always"` | kubecollector beat docker image pullPolicy |
 | beat.image.repository | string | `"public.ecr.aws/k7e6s3l5/light-kubecollector"` | kubecollector image repository |
 | beat.image.tag | string | `"latest"` | kubecollector beat image tag |
 | beat.name | string | `"beat"` | name of the beat service |
+| beat.nodeSelector | object | `{}` | Allow the kubecollector beat Deployment to schedule on selected nodes |
 | beat.replicaCount | int | `1` | Specify the number of replicas for the beat service |
 | beat.resources | object | `{"limits":{"cpu":"300m","memory":"200Mi"},"requests":{"cpu":"100m","memory":"100Mi"}}` | kubecollector beat resource requests and limits. |
+| beat.tolerations | list | `[]` | Allow the kubecollector beat to schedule on tainted nodes |
+| broker.affinity | object | `{}` | By default, Cluster Agent Deployment Pods are forced to run on different Nodes. |
 | broker.config.port | int | `6379` | kubecollector broker listening port. |
 | broker.fullnameOverride | string | `"light-kubecollector-broker"` | fully qualified name of the broker service |
 | broker.image.pullPolicy | string | `"IfNotPresent"` | redis docker image pullPolicy |
 | broker.image.repository | string | `"redis"` | redis docker image repository |
 | broker.image.tag | string | `"7.0.5"` | redis docker image tag |
 | broker.name | string | `"broker"` | name of the broker service component |
+| broker.nodeSelector | object | `{}` | Allow the kubecollector broker Deployment to schedule on selected nodes |
 | broker.replicaCount | int | `1` | Specify the number of replicas for the broker service |
 | broker.resources | object | `{"limits":{"cpu":1,"memory":"600Mi"},"requests":{"cpu":"300m","memory":"300Mi"}}` | kubecollector broker resource requests and limits. |
+| broker.tolerations | list | `[]` | Allow the kubecollector broker to schedule on tainted nodes |
 | clusterId | string | `""` | Your kubernetes cluster unique identifier (uuid4). will be derived from kube-system namespace uid. |
 | clusterName | string | `nil` | Your kubernetes cluster name to be identified in Lightspin platform. |
 | commonLabels | object | `{}` | Labels to apply to all resources |
@@ -122,18 +128,24 @@ The following table lists the configurable parameters of the Lightspin KubeColle
 | nameOverride | string | `nil` | Override name of app |
 | namespace.forceNamespace | string | `nil` | Override namespace of app |
 | runtime.enabled | bool | `true` | enable runtime detection services. |
-| runtime.events.config.log_level | string | `"INFO"` |  |
+| runtime.events.affinity | object | `{}` | By default, Cluster Agent Deployment Pods are forced to run on different Nodes. |
+| runtime.events.config.log_level | string | `"INFO"` | logs severity level. |
 | runtime.events.fullnameOverride | string | `"light-kuberuntime-events"` | fully qualified name of the runtime events service |
 | runtime.events.image.repository | string | `"public.ecr.aws/k7e6s3l5/light-kuberuntime"` | kuberuntime events image repository |
 | runtime.events.image.tag | string | `"latest"` | kuberuntime events image tag |
 | runtime.events.name | string | `"events"` | name of the runtime events service |
+| runtime.events.nodeSelector | object | `{}` | Allow the runtime events Deployment to schedule on selected nodes |
+| runtime.events.tolerations | list | `[]` | Allow the runtime events to schedule on tainted nodes |
+| runtime.falco.affinity | object | `{}` | By default, Cluster Agent Deployment Pods are forced to run on different Nodes. |
 | runtime.falco.ebpf_probe.enabled | bool | `false` | enable ebpf probe for falco. |
 | runtime.falco.fullnameOverride | string | `"lightspin-runtime"` | fully qualified name of the falco daemonset service |
 | runtime.falco.image.repository | string | `"public.ecr.aws/falcosecurity/falco"` | falco agent image repository |
 | runtime.falco.image.tag | string | `"0.33.1"` | falco agent image tag |
 | runtime.falco.name | string | `"runtime"` | name of the falco daemonset service |
-| runtime.falco.tolerations | list | `[{"effect":"NoSchedule","key":"node-role.kubernetes.io/master"}]` | tolerations for the falco daemonset |
+| runtime.falco.nodeSelector | object | `{}` | Allow the falco Daemonset to schedule on selected nodes |
+| runtime.falco.tolerations | list | `[{"effect":"NoSchedule","key":"node-role.kubernetes.io/master"}]` | Allow the falco Daemonset to schedule on tainted nodes |
 | tenantId | string | `nil` | Lightspin tenant id (id-xyz). |
+| worker.affinity | object | `{}` | By default, Cluster Agent Deployment Pods are forced to run on different Nodes. |
 | worker.config.api_rate_limit | float | `0` | kubernetes api calls sleep time between each call. |
 | worker.config.cmd_poller_interval | int | `60` | check for command message interval. |
 | worker.config.concurrency | int | `2` | number of concurrent tasks being executed. |
@@ -148,5 +160,7 @@ The following table lists the configurable parameters of the Lightspin KubeColle
 | worker.image.repository | string | `"public.ecr.aws/k7e6s3l5/light-kubecollector"` | kubecollector image repository |
 | worker.image.tag | string | `"latest"` | kubecollector worker image tag |
 | worker.name | string | `"worker"` | name of the worker service |
+| worker.nodeSelector | object | `{}` | Allow the kubecollector worker Deployment to schedule on selected nodes |
 | worker.replicaCount | int | `1` | Specify the number of replicas for the worker service |
 | worker.resources | object | `{"limits":{"cpu":"300m","memory":"1024Mi"},"requests":{"cpu":"100m","memory":"300Mi"}}` | kubecollector worker resource requests and limits. |
+| worker.tolerations | list | `[]` | Allow the kubecollector worker to schedule on tainted nodes |
