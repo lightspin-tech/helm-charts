@@ -54,6 +54,12 @@ broker:
     requests:
       memory: 300Mi
       cpu: 300m
+  # broker.nodeSelector -- Allow the kubecollector broker Deployment to schedule on selected nodes
+  nodeSelector: {}
+  # broker.affinity -- By default, Cluster Agent Deployment Pods are forced to run on different Nodes.
+  affinity: {}
+  # broker.tolerations -- Allow the kubecollector broker to schedule on tainted nodes
+  tolerations: []
   ## broker.config -- kubecollector broker config section.
   config:
     # broker.config.port -- kubecollector broker listening port.
@@ -82,6 +88,12 @@ beat:
     requests:
       memory: 100Mi
       cpu: 100m
+  # beat.nodeSelector -- Allow the kubecollector beat Deployment to schedule on selected nodes
+  nodeSelector: {}
+  # beat.affinity -- By default, Cluster Agent Deployment Pods are forced to run on different Nodes.
+  affinity: {}
+  # beat.tolerations -- Allow the kubecollector beat to schedule on tainted nodes
+  tolerations: []
 
 worker:
   # worker.fullnameOverride -- fully qualified name of the worker service
@@ -106,6 +118,12 @@ worker:
     requests:
       memory: 300Mi
       cpu: 100m
+  # worker.nodeSelector -- Allow the kubecollector worker Deployment to schedule on selected nodes
+  nodeSelector: {}
+  # worker.affinity -- By default, Cluster Agent Deployment Pods are forced to run on different Nodes.
+  affinity: {}
+  # worker.tolerations -- Allow the kubecollector worker to schedule on tainted nodes
+  tolerations: []
   ## worker.config -- kubecollector worker config section.
   config:
     # worker.config.keep_alive_interval -- keep alive message interval.
@@ -144,8 +162,12 @@ runtime:
     ebpf_probe:
       # runtime.falco.ebpf_probe.enabled -- enable ebpf probe for falco.
       enabled: false
+    # runtime.falco.nodeSelector -- Allow the falco Daemonset to schedule on selected nodes
+    nodeSelector: {}
+    # runtime.falco.affinity -- By default, Cluster Agent Deployment Pods are forced to run on different Nodes.
+    affinity: {}
+    # runtime.falco.tolerations -- Allow the falco Daemonset to schedule on tainted nodes
     tolerations:
-      # runtime.falco.tolerations -- tolerations for the falco daemonset
       - effect: NoSchedule
         key: node-role.kubernetes.io/master
   events:
@@ -158,7 +180,13 @@ runtime:
       repository: public.ecr.aws/k7e6s3l5/light-kuberuntime
       # runtime.events.image.tag -- kuberuntime events image tag
       tag: latest
+    # runtime.events.nodeSelector -- Allow the runtime events Deployment to schedule on selected nodes
+    nodeSelector: {}
+    # runtime.events.affinity -- By default, Cluster Agent Deployment Pods are forced to run on different Nodes.
+    affinity: {}
+    # runtime.events.tolerations -- Allow the runtime events to schedule on tainted nodes
+    tolerations: []
     ## runtime.events.config -- runtime events config section.
     config:
-      # runtime.config.log_level -- logs severity level.
+      # runtime.events.config.log_level -- logs severity level.
       log_level: "INFO"

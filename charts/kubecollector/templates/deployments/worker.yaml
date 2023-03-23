@@ -36,16 +36,16 @@ spec:
             - secretRef:
                 name: {{ template "lightspin-kubecollector.apikey" . }}
           resources:
-            {{- toYaml .Values.broker.resources | nindent 12 }}
-      {{- with .Values.broker.nodeSelector }}
+            {{- toYaml .Values.worker.resources | nindent 12 }}
+      {{- with .Values.worker.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      {{- with .Values.broker.affinity }}
+      {{- with .Values.worker.affinity }}
       affinity:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      {{- with .Values.broker.tolerations }}
+      {{- with .Values.worker.tolerations }}
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
