@@ -13,6 +13,10 @@ spec:
       {{- include "lightspin-kubecollector.runtime.events.matchLabels" . | nindent 6 }}
   template:
     metadata:
+      {{- with .Values.runtime.events.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       labels:
         {{- include "lightspin-kubecollector.runtime.events.labels" . | nindent 8 }}
     spec:
