@@ -60,6 +60,8 @@ broker:
   affinity: {}
   # broker.tolerations -- Allow the kubecollector broker to schedule on tainted nodes
   tolerations: []
+  # broker.podAnnotations -- Annotations to add to the kubecollector broker pod
+  podAnnotations: {}
   ## broker.config -- kubecollector broker config section.
   config:
     # broker.config.port -- kubecollector broker listening port.
@@ -94,6 +96,8 @@ beat:
   affinity: {}
   # beat.tolerations -- Allow the kubecollector beat to schedule on tainted nodes
   tolerations: []
+  # beat.podAnnotations -- Annotations to add to the kubecollector beat pod
+  podAnnotations: {}
 
 worker:
   # worker.fullnameOverride -- fully qualified name of the worker service
@@ -124,6 +128,8 @@ worker:
   affinity: {}
   # worker.tolerations -- Allow the kubecollector worker to schedule on tainted nodes
   tolerations: []
+  # worker.podAnnotations -- Annotations to add to the kubecollector worker pod
+  podAnnotations: {}
   ## worker.config -- kubecollector worker config section.
   config:
     # worker.config.keep_alive_interval -- keep alive message interval.
@@ -170,6 +176,8 @@ runtime:
     tolerations:
       - effect: NoSchedule
         key: node-role.kubernetes.io/master
+    # runtime.falco.podAnnotations -- Annotations to add to the falco Daemonset pod
+    podAnnotations: {}
   events:
     # runtime.events.fullnameOverride -- fully qualified name of the runtime events service
     fullnameOverride: light-kuberuntime-events
@@ -186,6 +194,8 @@ runtime:
     affinity: {}
     # runtime.events.tolerations -- Allow the runtime events to schedule on tainted nodes
     tolerations: []
+    # runtime.events.podAnnotations -- Annotations to add to the runtime events pod
+    podAnnotations: {}
     ## runtime.events.config -- runtime events config section.
     config:
       # runtime.events.config.log_level -- logs severity level.
