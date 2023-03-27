@@ -23,6 +23,9 @@ spec:
         role: security
     spec:
       serviceAccountName: {{ template "lightspin-kubecollector.runtime.falco.serviceAccountName" . }}
+      {{- if .Values.runtime.falco.podPriorityClassName }}
+      priorityClassName: {{ .Values.runtime.falco.podPriorityClassName }}
+      {{- end }}
       {{- with .Values.runtime.falco.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
