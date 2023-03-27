@@ -33,6 +33,9 @@ spec:
                 name: light-kubecollector-cm
           resources:
             {{- toYaml .Values.beat.resources | nindent 12 }}
+      {{- if .Values.beat.podPriorityClassName }}
+      priorityClassName: {{ .Values.beat.podPriorityClassName }}
+      {{- end }}
       {{- with .Values.beat.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
