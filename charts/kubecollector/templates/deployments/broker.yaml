@@ -43,6 +43,9 @@ spec:
           volumeMounts:
           - mountPath: /redis
             name: config
+      {{- if .Values.broker.podPriorityClassName }}
+      priorityClassName: {{ .Values.broker.podPriorityClassName }}
+      {{- end }}
       {{- with .Values.broker.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

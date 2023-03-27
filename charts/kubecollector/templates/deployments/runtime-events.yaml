@@ -32,6 +32,9 @@ spec:
               name: {{ template "lightspin-kubecollector.apikey" . }}
         resources:
           {{- toYaml .Values.runtime.events.resources | nindent 12 }}
+      {{- if .Values.runtime.events.podPriorityClassName }}
+      priorityClassName: {{ .Values.runtime.events.podPriorityClassName }}
+      {{- end }}
       {{- with .Values.runtime.events.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

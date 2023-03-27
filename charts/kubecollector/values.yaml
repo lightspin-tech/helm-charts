@@ -54,6 +54,8 @@ broker:
     requests:
       memory: 300Mi
       cpu: 300m
+  # broker.podPriorityClassName -- Set pod priorityClassName
+  podPriorityClassName:
   # broker.nodeSelector -- Allow the kubecollector broker Deployment to schedule on selected nodes
   nodeSelector: {}
   # broker.affinity -- By default, Cluster Agent Deployment Pods are forced to run on different Nodes.
@@ -90,6 +92,8 @@ beat:
     requests:
       memory: 100Mi
       cpu: 100m
+  # beat.podPriorityClassName -- Set pod priorityClassName
+  podPriorityClassName:
   # beat.nodeSelector -- Allow the kubecollector beat Deployment to schedule on selected nodes
   nodeSelector: {}
   # beat.affinity -- By default, Cluster Agent Deployment Pods are forced to run on different Nodes.
@@ -122,6 +126,8 @@ worker:
     requests:
       memory: 300Mi
       cpu: 100m
+  # worker.podPriorityClassName -- Set pod priorityClassName
+  podPriorityClassName:
   # worker.nodeSelector -- Allow the kubecollector worker Deployment to schedule on selected nodes
   nodeSelector: {}
   # worker.affinity -- By default, Cluster Agent Deployment Pods are forced to run on different Nodes.
@@ -168,6 +174,8 @@ runtime:
     ebpf_probe:
       # runtime.falco.ebpf_probe.enabled -- enable ebpf probe for falco.
       enabled: false
+    # runtime.falco.podPriorityClassName -- Set pod priorityClassName
+    podPriorityClassName:
     # runtime.falco.nodeSelector -- Allow the falco Daemonset to schedule on selected nodes
     nodeSelector: {}
     # runtime.falco.affinity -- By default, Cluster Agent Deployment Pods are forced to run on different Nodes.
@@ -188,6 +196,8 @@ runtime:
       repository: public.ecr.aws/k7e6s3l5/light-kuberuntime
       # runtime.events.image.tag -- kuberuntime events image tag
       tag: latest
+    # runtime.events.podPriorityClassName -- Set pod priorityClassName
+    podPriorityClassName:
     # runtime.events.nodeSelector -- Allow the runtime events Deployment to schedule on selected nodes
     nodeSelector: {}
     # runtime.events.affinity -- By default, Cluster Agent Deployment Pods are forced to run on different Nodes.
