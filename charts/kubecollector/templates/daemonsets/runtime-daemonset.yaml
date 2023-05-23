@@ -51,6 +51,9 @@ spec:
               memory: 512Mi
           securityContext:
             privileged: true
+            {{- if .Values.runtime.falco.allowPrivilegeEscalation.enabled }}
+            allowPrivilegeEscalation: {{ .Values.runtime.falco.allowPrivilegeEscalation.enabled }}
+            {{- end }}
           args:
             - /usr/bin/falco
             - --cri
