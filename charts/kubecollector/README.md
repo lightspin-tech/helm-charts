@@ -1,6 +1,6 @@
 # Lightspin KubeCollector
 
-![Version: 0.1.12](https://img.shields.io/badge/Version-0.1.12-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2.0.0](https://img.shields.io/badge/AppVersion-2.0.0-informational?style=flat-square)
+![Version: 0.1.13](https://img.shields.io/badge/Version-0.1.13-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2.0.0](https://img.shields.io/badge/AppVersion-2.0.0-informational?style=flat-square)
 
 [Lightspin](https://www.lightspin.io/) is a graph-based technology immediately visualizes, prioritizes, and dynamically remediates critical cloud risks with no custom configuration needed. This repository contains the Helm chart for the Lightspin KubeCollector application to be deployed on customers Kubernetes clusters.
 
@@ -100,7 +100,7 @@ The following table lists the configurable parameters of the Lightspin KubeColle
 | apiKey | string | `nil` | Lightspin API key |
 | apiKeyExistingSecret | string | `nil` | Use existing Secret which stores API key instead of creating a new one. The value should be set with the `API_KEY` key inside the secret. |
 | apiUrl | string | `"https://k8sapi.lightspin.cloud"` | Lightspin API URL (override for non US customers) |
-| beat.affinity | object | `{}` | By default, Cluster Agent Deployment Pods are forced to run on different Nodes. |
+| beat.affinity | object | `{}` | Allow the kubecollector beat Deployment to schedule using affinity rules |
 | beat.fullnameOverride | string | `"light-kubecollector-beat"` | fully qualified name of the beat service |
 | beat.image.pullPolicy | string | `"Always"` | kubecollector beat docker image pullPolicy |
 | beat.image.repository | string | `"public.ecr.aws/k7e6s3l5/light-kubecollector"` | kubecollector image repository |
@@ -112,7 +112,7 @@ The following table lists the configurable parameters of the Lightspin KubeColle
 | beat.replicaCount | int | `1` | Specify the number of replicas for the beat service |
 | beat.resources | object | `{"limits":{"cpu":"300m","memory":"200Mi"},"requests":{"cpu":"100m","memory":"100Mi"}}` | kubecollector beat resource requests and limits. |
 | beat.tolerations | list | `[]` | Allow the kubecollector beat to schedule on tainted nodes |
-| broker.affinity | object | `{}` | By default, Cluster Agent Deployment Pods are forced to run on different Nodes. |
+| broker.affinity | object | `{}` | Allow the kubecollector broker Deployment to schedule using affinity rules |
 | broker.config.port | int | `6379` | kubecollector broker listening port. |
 | broker.fullnameOverride | string | `"light-kubecollector-broker"` | fully qualified name of the broker service |
 | broker.image.pullPolicy | string | `"IfNotPresent"` | redis docker image pullPolicy |
@@ -132,7 +132,7 @@ The following table lists the configurable parameters of the Lightspin KubeColle
 | nameOverride | string | `nil` | Override name of app |
 | namespace.forceNamespace | string | `nil` | Override namespace of app |
 | runtime.enabled | bool | `true` | enable runtime detection services. |
-| runtime.events.affinity | object | `{}` | By default, Cluster Agent Deployment Pods are forced to run on different Nodes. |
+| runtime.events.affinity | object | `{}` | Allow the runtime events Deployment to schedule using affinity rules |
 | runtime.events.config.log_level | string | `"INFO"` | logs severity level. |
 | runtime.events.fullnameOverride | string | `"light-kuberuntime-events"` | fully qualified name of the runtime events service |
 | runtime.events.image.repository | string | `"public.ecr.aws/k7e6s3l5/light-kuberuntime"` | kuberuntime events image repository |
@@ -142,18 +142,18 @@ The following table lists the configurable parameters of the Lightspin KubeColle
 | runtime.events.podAnnotations | object | `{}` | Annotations to add to the runtime events pod |
 | runtime.events.podPriorityClassName | string | `nil` | Set pod priorityClassName |
 | runtime.events.tolerations | list | `[]` | Allow the runtime events to schedule on tainted nodes |
-| runtime.falco.affinity | object | `{}` | By default, Cluster Agent Deployment Pods are forced to run on different Nodes. |
+| runtime.falco.affinity | object | `{}` | Allow the falco Agent Daemonset to schedule using affinity rules |
 | runtime.falco.ebpf_probe.enabled | bool | `false` | enable ebpf probe for falco. |
 | runtime.falco.fullnameOverride | string | `"lightspin-runtime"` | fully qualified name of the falco daemonset service |
 | runtime.falco.image.repository | string | `"public.ecr.aws/falcosecurity/falco"` | falco agent image repository |
-| runtime.falco.image.tag | string | `"0.33.1"` | falco agent image tag |
+| runtime.falco.image.tag | string | `"0.34.1"` | falco agent image tag |
 | runtime.falco.name | string | `"runtime"` | name of the falco daemonset service |
 | runtime.falco.nodeSelector | object | `{}` | Allow the falco Daemonset to schedule on selected nodes |
 | runtime.falco.podAnnotations | object | `{}` | Annotations to add to the falco Daemonset pod |
 | runtime.falco.podPriorityClassName | string | `nil` | Set pod priorityClassName |
 | runtime.falco.tolerations | list | `[{"effect":"NoSchedule","key":"node-role.kubernetes.io/master"}]` | Allow the falco Daemonset to schedule on tainted nodes |
 | tenantId | string | `nil` | Lightspin tenant id (id-xyz). |
-| worker.affinity | object | `{}` | By default, Cluster Agent Deployment Pods are forced to run on different Nodes. |
+| worker.affinity | object | `{}` | Allow the kubecollector worker Deployment to schedule using affinity rules |
 | worker.config.api_rate_limit | float | `0` | kubernetes api calls sleep time between each call. |
 | worker.config.cmd_poller_interval | int | `60` | check for command message interval. |
 | worker.config.concurrency | int | `2` | number of concurrent tasks being executed. |
