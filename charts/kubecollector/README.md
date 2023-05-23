@@ -1,6 +1,6 @@
 # Lightspin KubeCollector
 
-![Version: 0.1.13](https://img.shields.io/badge/Version-0.1.13-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2.0.0](https://img.shields.io/badge/AppVersion-2.0.0-informational?style=flat-square)
+![Version: 0.1.14](https://img.shields.io/badge/Version-0.1.14-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2.0.0](https://img.shields.io/badge/AppVersion-2.0.0-informational?style=flat-square)
 
 [Lightspin](https://www.lightspin.io/) is a graph-based technology immediately visualizes, prioritizes, and dynamically remediates critical cloud risks with no custom configuration needed. This repository contains the Helm chart for the Lightspin KubeCollector application to be deployed on customers Kubernetes clusters.
 
@@ -143,6 +143,7 @@ The following table lists the configurable parameters of the Lightspin KubeColle
 | runtime.events.podPriorityClassName | string | `nil` | Set pod priorityClassName |
 | runtime.events.tolerations | list | `[]` | Allow the runtime events to schedule on tainted nodes |
 | runtime.falco.affinity | object | `{}` | Allow the falco Agent Daemonset to schedule using affinity rules |
+| runtime.falco.allowPrivilegeEscalation.enabled | string | `nil` | allow privilege escalation for falco. |
 | runtime.falco.ebpf_probe.enabled | bool | `false` | enable ebpf probe for falco. |
 | runtime.falco.fullnameOverride | string | `"lightspin-runtime"` | fully qualified name of the falco daemonset service |
 | runtime.falco.image.repository | string | `"public.ecr.aws/falcosecurity/falco"` | falco agent image repository |

@@ -174,6 +174,9 @@ runtime:
     ebpf_probe:
       # runtime.falco.ebpf_probe.enabled -- enable ebpf probe for falco.
       enabled: false
+    allowPrivilegeEscalation:
+      # runtime.falco.allowPrivilegeEscalation.enabled -- allow privilege escalation for falco.
+      enabled: null
     # runtime.falco.podPriorityClassName -- Set pod priorityClassName
     podPriorityClassName:
     # runtime.falco.nodeSelector -- Allow the falco Daemonset to schedule on selected nodes
