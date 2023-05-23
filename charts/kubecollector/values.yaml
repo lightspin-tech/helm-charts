@@ -58,7 +58,7 @@ broker:
   podPriorityClassName:
   # broker.nodeSelector -- Allow the kubecollector broker Deployment to schedule on selected nodes
   nodeSelector: {}
-  # broker.affinity -- By default, Cluster Agent Deployment Pods are forced to run on different Nodes.
+  # broker.affinity -- Allow the kubecollector broker Deployment to schedule using affinity rules
   affinity: {}
   # broker.tolerations -- Allow the kubecollector broker to schedule on tainted nodes
   tolerations: []
@@ -96,7 +96,7 @@ beat:
   podPriorityClassName:
   # beat.nodeSelector -- Allow the kubecollector beat Deployment to schedule on selected nodes
   nodeSelector: {}
-  # beat.affinity -- By default, Cluster Agent Deployment Pods are forced to run on different Nodes.
+  # beat.affinity -- Allow the kubecollector beat Deployment to schedule using affinity rules
   affinity: {}
   # beat.tolerations -- Allow the kubecollector beat to schedule on tainted nodes
   tolerations: []
@@ -130,7 +130,7 @@ worker:
   podPriorityClassName:
   # worker.nodeSelector -- Allow the kubecollector worker Deployment to schedule on selected nodes
   nodeSelector: {}
-  # worker.affinity -- By default, Cluster Agent Deployment Pods are forced to run on different Nodes.
+  # worker.affinity -- Allow the kubecollector worker Deployment to schedule using affinity rules
   affinity: {}
   # worker.tolerations -- Allow the kubecollector worker to schedule on tainted nodes
   tolerations: []
@@ -170,7 +170,7 @@ runtime:
       # runtime.falco.image.repository -- falco agent image repository
       repository: public.ecr.aws/falcosecurity/falco
       # runtime.falco.image.tag -- falco agent image tag
-      tag: 0.33.1
+      tag: 0.34.1
     ebpf_probe:
       # runtime.falco.ebpf_probe.enabled -- enable ebpf probe for falco.
       enabled: false
@@ -178,7 +178,7 @@ runtime:
     podPriorityClassName:
     # runtime.falco.nodeSelector -- Allow the falco Daemonset to schedule on selected nodes
     nodeSelector: {}
-    # runtime.falco.affinity -- By default, Cluster Agent Deployment Pods are forced to run on different Nodes.
+    # runtime.falco.affinity -- Allow the falco Agent Daemonset to schedule using affinity rules
     affinity: {}
     # runtime.falco.tolerations -- Allow the falco Daemonset to schedule on tainted nodes
     tolerations:
@@ -200,7 +200,7 @@ runtime:
     podPriorityClassName:
     # runtime.events.nodeSelector -- Allow the runtime events Deployment to schedule on selected nodes
     nodeSelector: {}
-    # runtime.events.affinity -- By default, Cluster Agent Deployment Pods are forced to run on different Nodes.
+    # runtime.events.affinity -- Allow the runtime events Deployment to schedule using affinity rules
     affinity: {}
     # runtime.events.tolerations -- Allow the runtime events to schedule on tainted nodes
     tolerations: []
