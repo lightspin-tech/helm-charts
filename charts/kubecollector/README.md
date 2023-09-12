@@ -1,6 +1,6 @@
 # Lightspin KubeCollector
 
-![Version: 0.1.14](https://img.shields.io/badge/Version-0.1.14-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2.0.0](https://img.shields.io/badge/AppVersion-2.0.0-informational?style=flat-square)
+![Version: 0.1.15](https://img.shields.io/badge/Version-0.1.15-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2.0.0](https://img.shields.io/badge/AppVersion-2.0.0-informational?style=flat-square)
 
 [Lightspin](https://www.lightspin.io/) is a graph-based technology immediately visualizes, prioritizes, and dynamically remediates critical cloud risks with no custom configuration needed. This repository contains the Helm chart for the Lightspin KubeCollector application to be deployed on customers Kubernetes clusters.
 
@@ -102,7 +102,7 @@ The following table lists the configurable parameters of the Lightspin KubeColle
 | apiUrl | string | `"https://k8sapi.lightspin.cloud"` | Lightspin API URL (override for non US customers) |
 | beat.affinity | object | `{}` | Allow the kubecollector beat Deployment to schedule using affinity rules |
 | beat.fullnameOverride | string | `"light-kubecollector-beat"` | fully qualified name of the beat service |
-| beat.image.pullPolicy | string | `"Always"` | kubecollector beat docker image pullPolicy |
+| beat.image.pullPolicy | string | `"IfNotPresent"` | kubecollector beat docker image pullPolicy |
 | beat.image.repository | string | `"public.ecr.aws/k7e6s3l5/light-kubecollector"` | kubecollector image repository |
 | beat.image.tag | string | `"latest"` | kubecollector beat image tag |
 | beat.name | string | `"beat"` | name of the beat service |
@@ -135,6 +135,7 @@ The following table lists the configurable parameters of the Lightspin KubeColle
 | runtime.events.affinity | object | `{}` | Allow the runtime events Deployment to schedule using affinity rules |
 | runtime.events.config.log_level | string | `"INFO"` | logs severity level. |
 | runtime.events.fullnameOverride | string | `"light-kuberuntime-events"` | fully qualified name of the runtime events service |
+| runtime.events.image.pullPolicy | string | `"IfNotPresent"` | kuberuntime events docker image pullPolicy |
 | runtime.events.image.repository | string | `"public.ecr.aws/k7e6s3l5/light-kuberuntime"` | kuberuntime events image repository |
 | runtime.events.image.tag | string | `"latest"` | kuberuntime events image tag |
 | runtime.events.name | string | `"events"` | name of the runtime events service |
@@ -165,7 +166,7 @@ The following table lists the configurable parameters of the Lightspin KubeColle
 | worker.config.vuls_enabled | bool | `true` | enable vulnerability scanning. |
 | worker.config.vuls_private_repo | bool | `true` | enable vulnerability scanning on private repository images (uses pull secret). |
 | worker.fullnameOverride | string | `"light-kubecollector-worker"` | fully qualified name of the worker service |
-| worker.image.pullPolicy | string | `"Always"` | kubecollector worker docker image pullPolicy |
+| worker.image.pullPolicy | string | `"IfNotPresent"` | kubecollector worker docker image pullPolicy |
 | worker.image.repository | string | `"public.ecr.aws/k7e6s3l5/light-kubecollector"` | kubecollector image repository |
 | worker.image.tag | string | `"latest"` | kubecollector worker image tag |
 | worker.name | string | `"worker"` | name of the worker service |

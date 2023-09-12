@@ -81,7 +81,7 @@ beat:
     # beat.image.tag -- kubecollector beat image tag
     tag: latest
     # beat.image.pullPolicy -- kubecollector beat docker image pullPolicy
-    pullPolicy: Always
+    pullPolicy: IfNotPresent
   # beat.replicaCount -- Specify the number of replicas for the beat service
   replicaCount: 1
   # beat.resources -- kubecollector beat resource requests and limits.
@@ -115,7 +115,7 @@ worker:
     # worker.image.tag -- kubecollector worker image tag
     tag: latest
     # worker.image.pullPolicy -- kubecollector worker docker image pullPolicy
-    pullPolicy: Always
+    pullPolicy: IfNotPresent
   # worker.replicaCount -- Specify the number of replicas for the worker service
   replicaCount: 1
   # worker.resources -- kubecollector worker resource requests and limits.
@@ -199,6 +199,8 @@ runtime:
       repository: public.ecr.aws/k7e6s3l5/light-kuberuntime
       # runtime.events.image.tag -- kuberuntime events image tag
       tag: latest
+      # runtime.events.image.pullPolicy -- kuberuntime events docker image pullPolicy
+      pullPolicy: IfNotPresent
     # runtime.events.podPriorityClassName -- Set pod priorityClassName
     podPriorityClassName:
     # runtime.events.nodeSelector -- Allow the runtime events Deployment to schedule on selected nodes
